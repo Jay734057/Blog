@@ -42,6 +42,7 @@ UIImageView *postImg;
         postImg.layer.cornerRadius = postImg.frame.size.width / 2;
         postImg.clipsToBounds = YES;
         postImg.userInteractionEnabled = YES;
+        postImg.backgroundColor = [UIColor blueColor];
         [postImg addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handlePickImg)]];
     }
     
@@ -60,12 +61,12 @@ UITextField *titleLbl;
     if (titleLbl) {
         titleLbl.translatesAutoresizingMaskIntoConstraints = NO;
         titleLbl.placeholder = @"Enter Title";
-        titleLbl.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        titleLbl.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
         titleLbl.textColor = [UIColor colorWithRed:85 Green:85 Blue:85];
         titleLbl.minimumFontSize = 17;
         titleLbl.adjustsFontSizeToFitWidth = YES;
         titleLbl.textAlignment = NSTextAlignmentCenter;
-        titleLbl.borderStyle = UIButtonTypeRoundedRect;
+        titleLbl.borderStyle = UITextBorderStyleRoundedRect;
         titleLbl.backgroundColor = [UIColor clearColor];
         titleLbl.contentMode = UIViewContentModeScaleToFill;
     }
@@ -73,21 +74,20 @@ UITextField *titleLbl;
     return titleLbl;
 }
 
-UITextField *descLbl;
+UITextView *descLbl;
 
--(UITextField *) descLabel {
-    descLbl = [[UITextField alloc]init];
+-(UITextView *) descLabel {
+    descLbl = [[UITextView alloc]init];
     
     if (descLbl) {
         descLbl.translatesAutoresizingMaskIntoConstraints = NO;
-        descLbl.placeholder = @"Enter Title";
-        descLbl.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-        descLbl.textColor = [UIColor colorWithRed:85 Green:85 Blue:85];
-        descLbl.minimumFontSize = 17;
-        descLbl.adjustsFontSizeToFitWidth = YES;
-        descLbl.textAlignment = NSTextAlignmentCenter;
-        descLbl.borderStyle = UIButtonTypeRoundedRect;
+        descLbl.text = @"";
+        descLbl.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+//        descLbl.textColor = [UIColor colorWithRed:204 Green:204 Blue:204];
         descLbl.backgroundColor = [UIColor clearColor];
+        descLbl.layer.borderWidth = 0.5f;
+        descLbl.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
+        descLbl.layer.cornerRadius = 6;
         descLbl.contentMode = UIViewContentModeScaleToFill;
     }
     
@@ -104,7 +104,8 @@ UIButton *postBtn;
         [postBtn setTitle:@"Make Post" forState:UIControlStateNormal];
         [postBtn setTintColor:[UIColor whiteColor]];
         [postBtn setBackgroundColor:[UIColor colorWithRed:61 Green:91 Blue:151]];
-        [postBtn.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15]];
+        [postBtn.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
+        postBtn.layer.cornerRadius = 6;
         [postBtn addTarget:self action:@selector(handleCancelBtnPress) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -139,6 +140,7 @@ UIButton *cancelBtn;
     [self.view addSubview:[self descLabel]];
     [self.view addSubview:[self postBtn]];
     [self setupMainView];
+    [self setupPlaceholder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -163,25 +165,40 @@ UIButton *cancelBtn;
 
 -(void)setupMainView {
     [postImg.topAnchor constraintEqualToAnchor:topContainer.bottomAnchor constant:35].active = YES;
-    [postImg.heightAnchor constraintEqualToConstant:240].active = YES;
-    [postImg.widthAnchor constraintEqualToConstant:240].active = YES;
+    [postImg.widthAnchor constraintEqualToConstant:self.view.frame.size.width * 0.6].active = YES;
+    [postImg.heightAnchor constraintEqualToAnchor:postImg.widthAnchor multiplier:1].active = YES;
     [postImg.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     
     [titleLbl.topAnchor constraintEqualToAnchor:postImg.bottomAnchor constant:25].active = YES;
-    [titleLbl.heightAnchor constraintEqualToConstant:30].active = YES;
-    [titleLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 20].active = YES;
-    [titleLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -20].active = YES;
+    [titleLbl.heightAnchor constraintEqualToConstant:36].active = YES;
+    [titleLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [titleLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
+
+    [postBtn.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20].active = YES;
+    [postBtn.heightAnchor constraintEqualToConstant:38].active = YES;
+    [postBtn.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [postBtn.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
     
     [descLbl.topAnchor constraintEqualToAnchor:titleLbl.bottomAnchor constant:20].active = YES;
-    [descLbl.heightAnchor constraintEqualToConstant:30].active = YES;
-    [descLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 20].active = YES;
-    [descLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -20].active = YES;
-    
-    [postBtn.topAnchor constraintEqualToAnchor:descLbl.bottomAnchor constant:22].active = YES;
-    [postBtn.heightAnchor constraintEqualToConstant:34].active = YES;
-    [postBtn.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 20].active = YES;
-    [postBtn.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -20].active = YES;
+    [descLbl.bottomAnchor constraintEqualToAnchor:postBtn.topAnchor constant:-20].active = YES;
+    [descLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [descLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
 
+}
+
+-(void)setupPlaceholder {
+    UILabel *placeholderLabel = [[UILabel alloc] init];
+    placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [placeholderLabel setText:@"Enter Description"];
+    [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+    [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18]];
+    [placeholderLabel setTextColor:[UIColor colorWithRed:204 Green:204 Blue:204]];
+    
+    [descLbl addSubview:placeholderLabel];
+    [placeholderLabel.topAnchor constraintEqualToAnchor:descLbl.topAnchor constant:1].active = YES;
+    [placeholderLabel.heightAnchor constraintEqualToConstant:36].active = YES;
+    [placeholderLabel.leftAnchor constraintEqualToAnchor:descLbl.leftAnchor constant: 5].active = YES;
+    [placeholderLabel.rightAnchor constraintEqualToAnchor:descLbl.rightAnchor constant: -28].active = YES;
 }
 
 -(void) handleCancelBtnPress {

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddPostViewController : UIViewController
+@interface AddPostViewController : UIViewController <UITextViewDelegate>
 
 @end
