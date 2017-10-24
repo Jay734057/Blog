@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		4DBE60A21F9EEB9B00550BB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60A11F9EEB9B00550BB3 /* main.m */; };
 		4DBE60A51F9EEB9B00550BB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60A41F9EEB9B00550BB3 /* AppDelegate.m */; };
-		4DBE60A81F9EEB9B00550BB3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60A71F9EEB9B00550BB3 /* ViewController.m */; };
-		4DBE60AB1F9EEB9B00550BB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE60A91F9EEB9B00550BB3 /* Main.storyboard */; };
 		4DBE60AD1F9EEB9B00550BB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE60AC1F9EEB9B00550BB3 /* Assets.xcassets */; };
 		4DBE60B01F9EEB9B00550BB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE60AE1F9EEB9B00550BB3 /* LaunchScreen.storyboard */; };
+		4DBE60BA1F9F40E200550BB3 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60B91F9F40E200550BB3 /* Post.m */; };
+		4DBE60BD1F9F42B400550BB3 /* BlogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60BC1F9F42B400550BB3 /* BlogTableViewController.m */; };
+		4DBE60C11F9F437300550BB3 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60C01F9F437300550BB3 /* DataService.m */; };
+		4DBE60C51F9F441100550BB3 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60C41F9F441100550BB3 /* PostCell.m */; };
+		4DBE60C91F9F4B9500550BB3 /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60C81F9F4B9500550BB3 /* UIColor+Helpers.m */; };
+		4DBE60CC1F9F600800550BB3 /* AddPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60CB1F9F600800550BB3 /* AddPostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +24,21 @@
 		4DBE60A11F9EEB9B00550BB3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DBE60A31F9EEB9B00550BB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4DBE60A41F9EEB9B00550BB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4DBE60A61F9EEB9B00550BB3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4DBE60A71F9EEB9B00550BB3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4DBE60AA1F9EEB9B00550BB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4DBE60AC1F9EEB9B00550BB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DBE60AF1F9EEB9B00550BB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DBE60B11F9EEB9B00550BB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DBE60B81F9F40E200550BB3 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		4DBE60B91F9F40E200550BB3 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		4DBE60BB1F9F42B400550BB3 /* BlogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlogTableViewController.h; sourceTree = "<group>"; };
+		4DBE60BC1F9F42B400550BB3 /* BlogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlogTableViewController.m; sourceTree = "<group>"; };
+		4DBE60BF1F9F437300550BB3 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
+		4DBE60C01F9F437300550BB3 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
+		4DBE60C31F9F441100550BB3 /* PostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
+		4DBE60C41F9F441100550BB3 /* PostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		4DBE60C71F9F4B9500550BB3 /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		4DBE60C81F9F4B9500550BB3 /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
+		4DBE60CA1F9F600800550BB3 /* AddPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPostViewController.h; sourceTree = "<group>"; };
+		4DBE60CB1F9F600800550BB3 /* AddPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +71,12 @@
 		4DBE609F1F9EEB9B00550BB3 /* Blog */ = {
 			isa = PBXGroup;
 			children = (
+				4DBE60C61F9F485D00550BB3 /* Controller */,
+				4DBE60C21F9F43D700550BB3 /* Views */,
+				4DBE60BE1F9F434B00550BB3 /* Services */,
+				4DBE60B71F9F40C900550BB3 /* Models */,
 				4DBE60A31F9EEB9B00550BB3 /* AppDelegate.h */,
 				4DBE60A41F9EEB9B00550BB3 /* AppDelegate.m */,
-				4DBE60A61F9EEB9B00550BB3 /* ViewController.h */,
-				4DBE60A71F9EEB9B00550BB3 /* ViewController.m */,
-				4DBE60A91F9EEB9B00550BB3 /* Main.storyboard */,
 				4DBE60AC1F9EEB9B00550BB3 /* Assets.xcassets */,
 				4DBE60AE1F9EEB9B00550BB3 /* LaunchScreen.storyboard */,
 				4DBE60B11F9EEB9B00550BB3 /* Info.plist */,
@@ -75,8 +89,48 @@
 			isa = PBXGroup;
 			children = (
 				4DBE60A11F9EEB9B00550BB3 /* main.m */,
+				4DBE60C71F9F4B9500550BB3 /* UIColor+Helpers.h */,
+				4DBE60C81F9F4B9500550BB3 /* UIColor+Helpers.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4DBE60B71F9F40C900550BB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4DBE60B81F9F40E200550BB3 /* Post.h */,
+				4DBE60B91F9F40E200550BB3 /* Post.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4DBE60BE1F9F434B00550BB3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4DBE60BF1F9F437300550BB3 /* DataService.h */,
+				4DBE60C01F9F437300550BB3 /* DataService.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		4DBE60C21F9F43D700550BB3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DBE60C31F9F441100550BB3 /* PostCell.h */,
+				4DBE60C41F9F441100550BB3 /* PostCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4DBE60C61F9F485D00550BB3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4DBE60BB1F9F42B400550BB3 /* BlogTableViewController.h */,
+				4DBE60BC1F9F42B400550BB3 /* BlogTableViewController.m */,
+				4DBE60CA1F9F600800550BB3 /* AddPostViewController.h */,
+				4DBE60CB1F9F600800550BB3 /* AddPostViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +194,6 @@
 			files = (
 				4DBE60B01F9EEB9B00550BB3 /* LaunchScreen.storyboard in Resources */,
 				4DBE60AD1F9EEB9B00550BB3 /* Assets.xcassets in Resources */,
-				4DBE60AB1F9EEB9B00550BB3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,23 +204,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBE60A81F9EEB9B00550BB3 /* ViewController.m in Sources */,
+				4DBE60CC1F9F600800550BB3 /* AddPostViewController.m in Sources */,
+				4DBE60BD1F9F42B400550BB3 /* BlogTableViewController.m in Sources */,
+				4DBE60C11F9F437300550BB3 /* DataService.m in Sources */,
 				4DBE60A51F9EEB9B00550BB3 /* AppDelegate.m in Sources */,
 				4DBE60A21F9EEB9B00550BB3 /* main.m in Sources */,
+				4DBE60C91F9F4B9500550BB3 /* UIColor+Helpers.m in Sources */,
+				4DBE60BA1F9F40E200550BB3 /* Post.m in Sources */,
+				4DBE60C51F9F441100550BB3 /* PostCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4DBE60A91F9EEB9B00550BB3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4DBE60AA1F9EEB9B00550BB3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4DBE60AE1F9EEB9B00550BB3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

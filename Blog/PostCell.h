@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PostCell.h
 //  Blog
 //
 //  Created by Jianyu ZHU on 24/10/17.
@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Post.h"
 
-@interface ViewController : UIViewController
+@interface PostCell : UITableViewCell
 
+-(void)configureCellWithPost: (Post *) post;
 
 @end
-
