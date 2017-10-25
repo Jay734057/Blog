@@ -64,10 +64,8 @@ NSMutableArray<Post *> *loadedPosts;
 
 -(void)addPost:(Post *)post {
     [[self loadedPosts] addObject: post];
-    NSLog(@"%lu", [loadedPosts count]);
     [self savePost];
     [self loadPosts];
-    NSLog(@"%lu", [loadedPosts count]);
 }
 
 

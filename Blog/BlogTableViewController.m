@@ -71,6 +71,14 @@ UITableView *tableView;
     [self.view addSubview:[self tableView]];
     [self setupTableView];
     tableView.dataSource = self;
+    tableView.delegate = self;
+    
+    [[DataService instance] loadPosts];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onPostsLoaded:) name:@"postsLoaded" object:nil];
+}
+
+-(void)onPostsLoaded: (NSObject *) notif{
+    [tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,12 +119,9 @@ UITableView *tableView;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Post *post = [[DataService instance] loadedPosts][[indexPath row]];
-    PostCell *cell = [tableView dequeueReusableCellWithIdentifier: @"PostCell"];
-    if (cell) {
-        [cell configureCellWithPost:post];
-    } else {
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
+    if (!cell)
         cell = [[PostCell alloc] init];
-    }
     
     [cell configureCellWithPost:post];
     
