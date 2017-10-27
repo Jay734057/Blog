@@ -12,35 +12,36 @@
 #import "PostCell.h"
 #import "AddPostViewController.h"
 
+@interface BlogTableViewController()
+
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UIButton *addPostBtn;
+@property (nonatomic, strong) UITableView *tableView;
+
+@end
+
+
 @implementation BlogTableViewController
 
-UIView *topView;
-
 -(UIView *) topView {
-    topView = [[UIView alloc] init];
-    
-    if (topView) {
-        topView.translatesAutoresizingMaskIntoConstraints = NO;
-        topView.backgroundColor = [UIColor colorWithRed:61 Green:91 Blue:151];
-        topView.contentMode = UIViewContentModeScaleToFill;
+    if (!_topView) {
+        _topView = [[UIView alloc] init];
+        _topView.translatesAutoresizingMaskIntoConstraints = NO;
+        _topView.backgroundColor = [UIColor colorWithRed:61 Green:91 Blue:151];
+        _topView.contentMode = UIViewContentModeScaleToFill;
     }
-    
-    return topView;
+    return _topView;
 }
 
-UIButton *addPostBtn;
-
 -(UIButton *) postBtn {
-    addPostBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    if (addPostBtn) {
-        addPostBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        [addPostBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
-        addPostBtn.contentMode = UIViewContentModeScaleToFill;
-        [addPostBtn addTarget:self action:@selector(handleAddBtnPress) forControlEvents:UIControlEventTouchUpInside];
+   if (!_addPostBtn) {
+        _addPostBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _addPostBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        [_addPostBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+        _addPostBtn.contentMode = UIViewContentModeScaleToFill;
+        [_addPostBtn addTarget:self action:@selector(handleAddBtnPress) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    return addPostBtn;
+    return _addPostBtn;
 }
 
 -(void)handleAddBtnPress {
@@ -48,66 +49,52 @@ UIButton *addPostBtn;
     [self presentViewController:postViewController animated:YES completion:nil];
 }
 
-UITableView *tableView;
-
 -(UITableView *) tableView {
-    tableView = [[UITableView alloc] init];
-    
-    if (tableView) {
-        tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] init];
+        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
     }
-    
-    return tableView;
+    return _tableView;
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:[self topView]];
+    [self.view addSubview:self.topView];
     [self setupTopView];
     
-    [self.view addSubview:[self tableView]];
+    [self.view addSubview:self.tableView];
     [self setupTableView];
-    tableView.dataSource = self;
-    tableView.delegate = self;
     
     [[DataService instance] loadPosts];
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(onPostsLoaded:) name:@"postsLoaded" object:nil];
 }
 
 -(void)onPostsLoaded: (NSObject *) notif{
-    [tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.tableView reloadData];
 }
 
 -(void)setupTopView {
-    [topView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [topView.heightAnchor constraintEqualToConstant:64].active = YES;
-    [topView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
-    [topView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
+    [self.topView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.topView.heightAnchor constraintEqualToConstant:64].active = YES;
+    [self.topView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
+    [self.topView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
     
-    [topView addSubview:[self postBtn]];
-    [addPostBtn.bottomAnchor constraintEqualToAnchor:topView.bottomAnchor constant:-8].active = YES;
-    [addPostBtn.heightAnchor constraintEqualToConstant:32].active = YES;
-    [addPostBtn.widthAnchor constraintEqualToConstant:40].active = YES;
-    [addPostBtn.rightAnchor constraintEqualToAnchor:topView.rightAnchor constant:-8].active = YES;
-    
-
+    [self.topView addSubview:self.postBtn];
+    [self.addPostBtn.bottomAnchor constraintEqualToAnchor:self.topView.bottomAnchor constant:-8].active = YES;
+    [self.addPostBtn.heightAnchor constraintEqualToConstant:32].active = YES;
+    [self.addPostBtn.widthAnchor constraintEqualToConstant:40].active = YES;
+    [self.addPostBtn.rightAnchor constraintEqualToAnchor:self.topView.rightAnchor constant:-8].active = YES;
 }
 
 -(void)setupTableView {
-    [tableView.topAnchor constraintEqualToAnchor:topView.bottomAnchor constant: 2].active = YES;
-    [tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-2].active = YES;
-    [tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
-    [tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
+    [self.tableView.topAnchor constraintEqualToAnchor:self.topView.bottomAnchor constant: 2].active = YES;
+    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-2].active = YES;
+    [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
+    [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
 }
-
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -131,6 +118,5 @@ UITableView *tableView;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 87.0;
 }
-
 
 @end

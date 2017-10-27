@@ -22,6 +22,7 @@
     _window = [[UIWindow alloc] initWithFrame: [UIScreen mainScreen].bounds];
     [_window makeKeyAndVisible];
     _window.rootViewController = [[BlogTableViewController alloc] init];
+    application.statusBarStyle = UIStatusBarStyleLightContent;
 
     return YES;
 }

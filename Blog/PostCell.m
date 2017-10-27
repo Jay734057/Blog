@@ -9,59 +9,63 @@
 #import "PostCell.h"
 #import "DataService.h"
 
+@interface PostCell()
+
+@property (nonatomic, strong) UIView *cellView;
+@property (nonatomic, strong) UIImageView *postImage;
+@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *desc;
+
+@end
+
 @implementation PostCell
 
-UIView *contentView;
-
 -(UIView *)contentView {
-    contentView = [[UIView alloc] init];
-    contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    return contentView;
+    if(!_cellView) {
+        _cellView = [[UIView alloc] init];
+        _cellView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellView;
 }
 
-UIImageView *postImage;
 
 -(UIImageView *)postImage {
-    postImage = [[UIImageView alloc] init];
-    postImage.translatesAutoresizingMaskIntoConstraints = NO;
-    postImage.contentMode = UIViewContentModeScaleToFill;
-    postImage.clipsToBounds = YES;
-    postImage.layer.cornerRadius = 36;
-    return postImage;
+    if(!_postImage) {
+        _postImage = [[UIImageView alloc] init];
+        _postImage.translatesAutoresizingMaskIntoConstraints = NO;
+        _postImage.contentMode = UIViewContentModeScaleToFill;
+        _postImage.clipsToBounds = YES;
+        _postImage.layer.cornerRadius = 36;
+    }
+    return _postImage;
 }
 
-UILabel *title;
+
 
 -(UILabel *)title {
-    title = [[UILabel alloc] init];
-    title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.font = [UIFont fontWithName: @"Helvetica Neue" size:16];
-    title.lineBreakMode = NSLineBreakByTruncatingTail;
-//    title.backgroundColor = [UIColor blueColor];
-    return title;
+    if (!_title) {
+        _title = [[UILabel alloc] init];
+        _title.translatesAutoresizingMaskIntoConstraints = NO;
+        _title.font = [UIFont fontWithName: @"Helvetica Neue" size:16];
+        _title.lineBreakMode = NSLineBreakByTruncatingTail;
+        //    title.backgroundColor = [UIColor blueColor];
+    }
+    return _title;
 }
 
-UILabel *desc;
+
 
 -(UILabel *)desc {
-    desc = [[UILabel alloc] init];
-    desc.translatesAutoresizingMaskIntoConstraints = NO;
-    desc.font = [UIFont fontWithName: @"Helvetica Neue Light Italic" size:14];
-    desc.lineBreakMode = NSLineBreakByWordWrapping;
-    desc.numberOfLines = 2;
-//    desc.backgroundColor = [UIColor redColor];
-    return desc;
-}
+    if (!_desc) {
+        _desc = [[UILabel alloc] init];
+        _desc.translatesAutoresizingMaskIntoConstraints = NO;
+        _desc.font = [UIFont fontWithName: @"Helvetica Neue Light Italic" size:14];
+        _desc.lineBreakMode = NSLineBreakByWordWrapping;
+        _desc.numberOfLines = 2;
+        //    desc.backgroundColor = [UIColor redColor];
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    }
+    return _desc;
 }
 
 -(id)init {
@@ -81,45 +85,44 @@ UILabel *desc;
 }
 
 -(void)setupView {
-    [self addSubview:[self contentView]];
+    [self addSubview:self.cellView];
     [self setupCell];
     
-    [contentView addSubview:[self postImage]];
-    [contentView addSubview:[self title]];
-    [contentView addSubview:[self desc]];
+    [self.cellView addSubview:self.postImage];
+    [self.cellView addSubview:self.title];
+    [self.cellView addSubview:self.desc];
     [self setupContentView];
 }
 
 -(void)setupCell {
-    [contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-    [contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+    [self.cellView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [self.cellView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    [self.cellView.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [self.cellView.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
 }
 
 -(void)setupContentView {
-    [postImage.topAnchor constraintEqualToAnchor:contentView.topAnchor constant:8].active = YES;
-    [postImage.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor constant:-8].active = YES;
-    [postImage.leftAnchor constraintEqualToAnchor:contentView.leftAnchor constant:8].active = YES;
-    [postImage.widthAnchor constraintEqualToAnchor:postImage.heightAnchor].active = YES;
+    [self.postImage.topAnchor constraintEqualToAnchor:self.cellView.topAnchor constant:8].active = YES;
+    [self.postImage.bottomAnchor constraintEqualToAnchor:self.cellView.bottomAnchor constant:-8].active = YES;
+    [self.postImage.leftAnchor constraintEqualToAnchor:self.cellView.leftAnchor constant:8].active = YES;
+    [self.postImage.widthAnchor constraintEqualToAnchor:self.postImage.heightAnchor].active = YES;
     
-    [title.topAnchor constraintEqualToAnchor:contentView.topAnchor constant:8].active = YES;
-    [title.leftAnchor constraintEqualToAnchor:postImage.rightAnchor constant:8].active = YES;
-    [title.rightAnchor constraintEqualToAnchor:contentView.rightAnchor constant:-8].active = YES;
-    [title.heightAnchor constraintEqualToConstant:18].active = YES;
+    [self.title.topAnchor constraintEqualToAnchor:self.cellView.topAnchor constant:8].active = YES;
+    [self.title.leftAnchor constraintEqualToAnchor:self.postImage.rightAnchor constant:8].active = YES;
+    [self.title.rightAnchor constraintEqualToAnchor:self.cellView.rightAnchor constant:-8].active = YES;
+    [self.title.heightAnchor constraintEqualToConstant:18].active = YES;
     
-    [desc.topAnchor constraintEqualToAnchor:title.bottomAnchor constant:4].active = YES;
-    [desc.leftAnchor constraintEqualToAnchor:postImage.rightAnchor constant:8].active = YES;
-    [desc.rightAnchor constraintEqualToAnchor:contentView.rightAnchor constant:-8].active = YES;
-    [desc.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor constant:-8].active = YES;
+    [self.desc.topAnchor constraintEqualToAnchor:self.title.bottomAnchor constant:4].active = YES;
+    [self.desc.leftAnchor constraintEqualToAnchor:self.postImage.rightAnchor constant:8].active = YES;
+    [self.desc.rightAnchor constraintEqualToAnchor:self.cellView.rightAnchor constant:-8].active = YES;
+    [self.desc.bottomAnchor constraintEqualToAnchor:self.cellView.bottomAnchor constant:-8].active = YES;
     
 }
 
 -(void)configureCellWithPost:(Post *) post {
-    title.text = post.title;
-    postImage.image = [[DataService instance] imageForPath:post.imagePath];
-    desc.text = post.postDesc;
+    self.title.text = post.title;
+    self.postImage.image = [[DataService instance] imageForPath:post.imagePath];
+    self.desc.text = post.postDesc;
 }
-
 
 @end

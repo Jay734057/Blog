@@ -12,207 +12,197 @@
 
 @interface AddPostViewController ()
 
+@property (nonatomic, strong) UIView *topContainer;
+@property (nonatomic, strong) UIImageView *postImg;
+@property (nonatomic, strong) UITextField *titleLbl;
+@property (nonatomic, strong) UITextView *descLbl;
+@property (nonatomic, strong) UIButton *postBtn;
+@property (nonatomic, strong) UIButton *cancelBtn;
+@property (nonatomic, strong) UILabel *placeholderLabel;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
+
 @end
 
 @implementation AddPostViewController
 
-UIView *topContainer;
 
 -(UIView *) topContainer {
-    topContainer = [[UIView alloc] init];
-    
-    if (topContainer) {
-        topContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        topContainer.backgroundColor = [UIColor colorWithRed:61 Green:91 Blue:151];
-        topContainer.contentMode = UIViewContentModeScaleToFill;
+    if (!_topContainer) {
+        _topContainer = [[UIView alloc] init];
+        _topContainer.translatesAutoresizingMaskIntoConstraints = NO;
+        _topContainer.backgroundColor = [UIColor colorWithRed:61 Green:91 Blue:151];
+        _topContainer.contentMode = UIViewContentModeScaleToFill;
     }
-    
-    return topContainer;
+    return _topContainer;
 }
-
-
-UIImageView *postImg;
 
 -(UIImageView *) postImg {
-    postImg = [[UIImageView alloc]init];
-    
-    if (postImg) {
-        postImg.translatesAutoresizingMaskIntoConstraints = NO;
-        postImg.backgroundColor = [UIColor clearColor];
-        postImg.contentMode = UIViewContentModeScaleAspectFill;
-        postImg.layer.cornerRadius = postImg.frame.size.width / 2;
-        postImg.clipsToBounds = YES;
-        postImg.userInteractionEnabled = YES;
-        [postImg addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleImgPick)]];
+    if (!_postImg) {
+        _postImg = [[UIImageView alloc]init];
+        _postImg.translatesAutoresizingMaskIntoConstraints = NO;
+        _postImg.backgroundColor = [UIColor clearColor];
+        _postImg.contentMode = UIViewContentModeScaleAspectFill;
+        _postImg.layer.cornerRadius = _postImg.frame.size.width / 2;
+        _postImg.clipsToBounds = YES;
+        _postImg.userInteractionEnabled = YES;
+        _postImg.layer.borderWidth = 0.5f;
+        _postImg.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
+        _postImg.layer.cornerRadius = 6;
+        [_postImg addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleImgPick)]];
     }
-    
-    return postImg;
+    return _postImg;
 }
 
-UITextField *titleLbl;
-
--(UITextField *) titleLabel {
-    titleLbl = [[UITextField alloc]init];
-    
-    if (titleLbl) {
-        titleLbl.translatesAutoresizingMaskIntoConstraints = NO;
-        titleLbl.placeholder = @"Enter Title";
-        titleLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-        titleLbl.textColor = [UIColor colorWithRed:85 Green:85 Blue:85];
-        titleLbl.minimumFontSize = 17;
-        titleLbl.adjustsFontSizeToFitWidth = YES;
-        titleLbl.textAlignment = NSTextAlignmentCenter;
-        titleLbl.borderStyle = UITextBorderStyleRoundedRect;
-        titleLbl.backgroundColor = [UIColor clearColor];
-        titleLbl.contentMode = UIViewContentModeScaleToFill;
+-(UITextField *) titleLbl {
+    if (!_titleLbl) {
+        _titleLbl = [[UITextField alloc]init];
+        _titleLbl.translatesAutoresizingMaskIntoConstraints = NO;
+        _titleLbl.placeholder = @"Enter Title";
+        _titleLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+        _titleLbl.textColor = [UIColor colorWithRed:85 Green:85 Blue:85];
+        _titleLbl.minimumFontSize = 17;
+        _titleLbl.adjustsFontSizeToFitWidth = YES;
+        _titleLbl.textAlignment = NSTextAlignmentCenter;
+        _titleLbl.borderStyle = UITextBorderStyleRoundedRect;
+        _titleLbl.backgroundColor = [UIColor clearColor];
+        _titleLbl.contentMode = UIViewContentModeScaleToFill;
     }
-    
-    return titleLbl;
+    return _titleLbl;
 }
 
-UITextView *descLbl;
-
--(UITextView *) descLabel {
-    descLbl = [[UITextView alloc]init];
-    
-    if (descLbl) {
-        descLbl.translatesAutoresizingMaskIntoConstraints = NO;
-        descLbl.text = @"";
-        descLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-        descLbl.backgroundColor = [UIColor clearColor];
-        descLbl.layer.borderWidth = 0.5f;
-        descLbl.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
-        descLbl.layer.cornerRadius = 6;
-        descLbl.contentMode = UIViewContentModeScaleToFill;
-        descLbl.delegate = self;
+-(UITextView *) descLbl {
+    if (!_descLbl) {
+        _descLbl = [[UITextView alloc]init];
+        _descLbl.translatesAutoresizingMaskIntoConstraints = NO;
+        _descLbl.text = @"";
+        _descLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+        _descLbl.backgroundColor = [UIColor clearColor];
+        _descLbl.layer.borderWidth = 0.5f;
+        _descLbl.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
+        _descLbl.layer.cornerRadius = 6;
+        _descLbl.contentMode = UIViewContentModeScaleToFill;
+        _descLbl.delegate = self;
     }
-    
-    return descLbl;
+    return _descLbl;
 }
-
-UIButton *postBtn;
 
 -(UIButton *) postBtn {
-    postBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    if (postBtn) {
-        postBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        [postBtn setTitle:@"Make Post" forState:UIControlStateNormal];
-        [postBtn setTintColor:[UIColor whiteColor]];
-        [postBtn setBackgroundColor:[UIColor colorWithRed:61 Green:91 Blue:151]];
-        [postBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
-        postBtn.layer.cornerRadius = 6;
-        [postBtn addTarget:self action:@selector(handlePost) forControlEvents:UIControlEventTouchUpInside];
+    if (!_postBtn) {
+        _postBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _postBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        [_postBtn setTitle:@"Make Post" forState:UIControlStateNormal];
+        [_postBtn setTintColor:[UIColor whiteColor]];
+        [_postBtn setBackgroundColor:[UIColor colorWithRed:61 Green:91 Blue:151]];
+        [_postBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
+        _postBtn.layer.cornerRadius = 6;
+        [_postBtn addTarget:self action:@selector(handlePost) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    return postBtn;
+    return _postBtn;
 }
-
-UIButton *cancelBtn;
 
 -(UIButton *) cancelBtn {
-    cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    if (cancelBtn) {
-        cancelBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        [cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
-        [cancelBtn setTintColor:[UIColor whiteColor]];
-        [cancelBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
-        [cancelBtn addTarget:self action:@selector(handleCancelBtnPress) forControlEvents:UIControlEventTouchUpInside];
+    if (!_cancelBtn) {
+        _cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _cancelBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        [_cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+        [_cancelBtn setTintColor:[UIColor whiteColor]];
+        [_cancelBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
+        [_cancelBtn addTarget:self action:@selector(handleCancelBtnPress) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    return cancelBtn;
+    return _cancelBtn;
 }
 
+-(UILabel *) placeholderLabel {
+    if (!_placeholderLabel) {
+        _placeholderLabel = [[UILabel alloc] init];
+        _placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [_placeholderLabel setText:@"Enter Description"];
+        [_placeholderLabel setBackgroundColor:[UIColor clearColor]];
+        [_placeholderLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
+        [_placeholderLabel setTextColor:[UIColor colorWithRed:204 Green:204 Blue:204]];
+    }
+    return _placeholderLabel;
+}
+
+-(UIImagePickerController *)imagePicker {
+    if (!_imagePicker) {
+        _imagePicker = [[UIImagePickerController alloc]init];
+        _imagePicker.delegate = self;
+    }
+    return _imagePicker;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    imagePicker = [[UIImagePickerController alloc]init];
-    imagePicker.delegate = self;
     
-    [self.view addSubview:[self topContainer]];
+    
+    [self.view addSubview:self.topContainer];
     [self setupTopContainer];
     
-    [self.view addSubview:[self postImg]];
-    [self.view addSubview:[self titleLabel]];
-    [self.view addSubview:[self descLabel]];
-    [self.view addSubview:[self postBtn]];
+    [self.view addSubview:self.postImg];
+    [self.view addSubview:self.titleLbl];
+    [self.view addSubview:self.descLbl];
+    [self.view addSubview:self.postBtn];
     [self setupMainView];
+    
+    [self.descLbl addSubview:self.placeholderLabel];
     [self setupPlaceholder];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 -(void)setupTopContainer {
-    [topContainer.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [topContainer.heightAnchor constraintEqualToConstant:64].active = YES;
-    [topContainer.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
-    [topContainer.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
+    [self.topContainer.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.topContainer.heightAnchor constraintEqualToConstant:64].active = YES;
+    [self.topContainer.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
+    [self.topContainer.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
     
-    [topContainer addSubview:[self cancelBtn]];
-    [cancelBtn.bottomAnchor constraintEqualToAnchor:topContainer.bottomAnchor constant:-4].active = YES;
-    [cancelBtn.heightAnchor constraintEqualToConstant:32].active = YES;
-    [cancelBtn.widthAnchor constraintEqualToConstant:64].active = YES;
-    [cancelBtn.leftAnchor constraintEqualToAnchor:topContainer.leftAnchor constant:8].active = YES;
-    
-    
+    [self.topContainer addSubview: self.cancelBtn];
+    [self.cancelBtn.bottomAnchor constraintEqualToAnchor:self.topContainer.bottomAnchor constant:-4].active = YES;
+    [self.cancelBtn.heightAnchor constraintEqualToConstant:32].active = YES;
+    [self.cancelBtn.widthAnchor constraintEqualToConstant:64].active = YES;
+    [self.cancelBtn.leftAnchor constraintEqualToAnchor:self.topContainer.leftAnchor constant:8].active = YES;
 }
 
 -(void)setupMainView {
-    [postImg.topAnchor constraintEqualToAnchor:topContainer.bottomAnchor constant:35].active = YES;
-    [postImg.widthAnchor constraintEqualToConstant:self.view.frame.size.width * 0.6].active = YES;
-    [postImg.heightAnchor constraintEqualToAnchor:postImg.widthAnchor multiplier:1].active = YES;
-    [postImg.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [self.postImg.topAnchor constraintEqualToAnchor:self.topContainer.bottomAnchor constant:35].active = YES;
+    [self.postImg.widthAnchor constraintEqualToConstant:self.view.frame.size.width * 0.6].active = YES;
+    [self.postImg.heightAnchor constraintEqualToAnchor:self.postImg.widthAnchor multiplier:1].active = YES;
+    [self.postImg.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     
-    [titleLbl.topAnchor constraintEqualToAnchor:postImg.bottomAnchor constant:25].active = YES;
-    [titleLbl.heightAnchor constraintEqualToConstant:36].active = YES;
-    [titleLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
-    [titleLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
+    [self.titleLbl.topAnchor constraintEqualToAnchor:self.postImg.bottomAnchor constant:25].active = YES;
+    [self.titleLbl.heightAnchor constraintEqualToConstant:36].active = YES;
+    [self.titleLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [self.titleLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
 
-    [postBtn.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20].active = YES;
-    [postBtn.heightAnchor constraintEqualToConstant:38].active = YES;
-    [postBtn.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
-    [postBtn.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
+    [self.postBtn.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20].active = YES;
+    [self.postBtn.heightAnchor constraintEqualToConstant:38].active = YES;
+    [self.postBtn.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [self.postBtn.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
     
-    [descLbl.topAnchor constraintEqualToAnchor:titleLbl.bottomAnchor constant:20].active = YES;
-    [descLbl.bottomAnchor constraintEqualToAnchor:postBtn.topAnchor constant:-20].active = YES;
-    [descLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
-    [descLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
-
+    [self.descLbl.topAnchor constraintEqualToAnchor:self.titleLbl.bottomAnchor constant:20].active = YES;
+    [self.descLbl.bottomAnchor constraintEqualToAnchor:self.postBtn.topAnchor constant:-20].active = YES;
+    [self.descLbl.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant: 28].active = YES;
+    [self.descLbl.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant: -28].active = YES;
 }
 
-UILabel *placeholderLabel;
-
 -(void)setupPlaceholder {
-    placeholderLabel = [[UILabel alloc] init];
-    placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [placeholderLabel setText:@"Enter Description"];
-    [placeholderLabel setBackgroundColor:[UIColor clearColor]];
-    [placeholderLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
-    [placeholderLabel setTextColor:[UIColor colorWithRed:204 Green:204 Blue:204]];
-    
-    [descLbl addSubview:placeholderLabel];
-    [placeholderLabel.topAnchor constraintEqualToAnchor:descLbl.topAnchor constant:1].active = YES;
-    [placeholderLabel.heightAnchor constraintEqualToConstant:36].active = YES;
-    [placeholderLabel.leftAnchor constraintEqualToAnchor:descLbl.leftAnchor constant: 5].active = YES;
-    [placeholderLabel.rightAnchor constraintEqualToAnchor:descLbl.rightAnchor constant: -28].active = YES;
+    [self.placeholderLabel.topAnchor constraintEqualToAnchor:self.descLbl.topAnchor constant:1].active = YES;
+    [self.placeholderLabel.heightAnchor constraintEqualToConstant:36].active = YES;
+    [self.placeholderLabel.leftAnchor constraintEqualToAnchor:self.descLbl.leftAnchor constant: 5].active = YES;
+    [self.placeholderLabel.rightAnchor constraintEqualToAnchor:self.descLbl.rightAnchor constant: -28].active = YES;
 }
 
 -(void)textViewDidChange:(UITextView *)textView {
-    if(![descLbl hasText]) {
-        placeholderLabel.hidden = NO;
-    } else if ([[descLbl subviews] containsObject:placeholderLabel]) {
-        placeholderLabel.hidden = YES;
+    if(![self.descLbl hasText]) {
+        self.placeholderLabel.hidden = NO;
+    } else if ([[self.descLbl subviews] containsObject:self.placeholderLabel]) {
+        self.placeholderLabel.hidden = YES;
     }
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
     if (![textView hasText]) {
-        placeholderLabel.hidden = NO;
+        self.placeholderLabel.hidden = NO;
     }
 }
 
@@ -220,24 +210,24 @@ UILabel *placeholderLabel;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-UIImagePickerController *imagePicker;
+
 
 -(void)handleImgPick {
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 -(void)handlePost {
-    if(postImg.image && titleLbl.text && descLbl.text){
-        NSString *imgPath = [[DataService instance] saveImageAndCreatePathWithImage:postImg.image];
-        Post *post = [[Post alloc] initWithImagePath:imgPath Title:titleLbl.text Description:descLbl.text];
+    if(self.postImg.image && self.titleLbl.text && self.descLbl.text){
+        NSString *imgPath = [[DataService instance] saveImageAndCreatePathWithImage:self.postImg.image];
+        Post *post = [[Post alloc] initWithImagePath:imgPath Title:self.titleLbl.text Description:self.descLbl.text];
         [[DataService instance] addPost:post];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary<NSString *,id> *)editingInfo {
-    [imagePicker dismissViewControllerAnimated:true completion:nil];
-    postImg.image = image;
+    [self.imagePicker dismissViewControllerAnimated:true completion:nil];
+    self.postImg.image = image;
 }
 
 

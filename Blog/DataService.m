@@ -8,19 +8,19 @@
 
 #import "DataService.h"
 
+#define KEY_POSTS "posts"
 
 @implementation DataService
 
-NSString *const KEY_POSTS = @"posts";
-
-static DataService *instance;
-
-+(DataService *) instance{
-    if (!instance) {
-        instance = [[DataService alloc] init];
-        loadedPosts = [[NSMutableArray alloc] init];
++(id)instance {
+    static DataService *sharedInstance = nil;
+    
+    @synchronized (self) {
+        if (sharedInstance == nil)
+            sharedInstance = [[self alloc]init];
     }
-    return instance;
+    
+    return sharedInstance;
 }
 
 NSMutableArray<Post *> *loadedPosts;
@@ -31,12 +31,12 @@ NSMutableArray<Post *> *loadedPosts;
 
 -(void)savePost {
     NSData * postData = [NSKeyedArchiver archivedDataWithRootObject: loadedPosts];
-    [[NSUserDefaults standardUserDefaults] setObject: postData forKey:KEY_POSTS];
+    [[NSUserDefaults standardUserDefaults] setObject: postData forKey:@KEY_POSTS];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)loadPosts {
-    NSData *postData = [[NSUserDefaults standardUserDefaults] objectForKey:KEY_POSTS];
+    NSData *postData = [[NSUserDefaults standardUserDefaults] objectForKey:@KEY_POSTS];
     if (postData) {
         NSMutableArray<Post *> *postsArray = [NSKeyedUnarchiver unarchiveObjectWithData:postData];
         if (postsArray) {
@@ -45,7 +45,6 @@ NSMutableArray<Post *> *loadedPosts;
     }
     
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName: [NSString stringWithFormat: @"postsLoaded"] object:nil]];
-    
 }
 
 -(NSString *)saveImageAndCreatePathWithImage:(UIImage *)image {
@@ -67,8 +66,6 @@ NSMutableArray<Post *> *loadedPosts;
     [self savePost];
     [self loadPosts];
 }
-
-
 
 -(NSString *)documentsPathForFileName:(NSString *)name {
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

@@ -12,15 +12,13 @@
 
 @interface DataService : NSObject
 
-extern NSString *const KEY_POSTS;
-+(DataService *) instance;
-
--(NSMutableArray *)loadedPosts;
++(id _Nullable ) instance;
+-(NSMutableArray *_Nullable)loadedPosts;
 -(void)savePost;
 -(void)loadPosts;
--(NSString *)saveImageAndCreatePathWithImage: (UIImage *) image;
--(UIImage *)imageForPath: (NSString *)path;
--(void)addPost: (Post *)post;
--(NSString *)documentsPathForFileName: (NSString *)name;
+-(NSString *_Nonnull)saveImageAndCreatePathWithImage: (UIImage *_Nonnull) image;
+-(UIImage *_Nullable)imageForPath: (NSString *_Nonnull)path;
+-(void)addPost: (Post *_Nonnull)post;
+-(NSString *_Nullable)documentsPathForFileName: (NSString *_Nonnull)name;
 
 @end
