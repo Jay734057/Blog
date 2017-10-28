@@ -90,7 +90,7 @@
 }
 
 -(void)setupTableView {
-    [self.tableView.topAnchor constraintEqualToAnchor:self.topView.bottomAnchor constant: 2].active = YES;
+    [self.tableView.topAnchor constraintEqualToAnchor:self.topView.bottomAnchor].active = YES;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-2].active = YES;
     [self.tableView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor].active = YES;
     [self.tableView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor].active = YES;
@@ -105,7 +105,7 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Post *post = [[DataService instance] loadedPosts][[indexPath row]];
+    Post *post = [[[DataService instance] loadedPosts] objectAtIndex:indexPath.row];
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     if (!cell)
         cell = [[PostCell alloc] init];
@@ -117,6 +117,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 87.0;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return true;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@", [[[DataService instance] loadedPosts] objectAtIndex:indexPath.row]);
 }
 
 @end

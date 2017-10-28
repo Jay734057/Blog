@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Post.h"
+@class Post;
 
 @interface DataService : NSObject
 

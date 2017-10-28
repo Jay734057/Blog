@@ -9,6 +9,7 @@
 #import "AddPostViewController.h"
 #import "UIColor+Helpers.h"
 #import "DataService.h"
+#import "Post.h"
 
 @interface AddPostViewController ()
 
