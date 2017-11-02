@@ -19,6 +19,7 @@
 -(NSString *_Nonnull)saveImageAndCreatePathWithImage: (UIImage *_Nonnull) image;
 -(UIImage *_Nullable)imageForPath: (NSString *_Nonnull)path;
 -(void)addPost: (Post *_Nonnull)post;
+-(void)deletePost: (NSInteger) index;
 -(NSString *_Nullable)documentsPathForFileName: (NSString *_Nonnull)name;
 
 @end

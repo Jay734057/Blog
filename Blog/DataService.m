@@ -67,6 +67,10 @@ NSMutableArray<Post *> *loadedPosts;
     [self loadPosts];
 }
 
+-(void)deletePost:(NSInteger)index {
+    [[self loadedPosts] removeObjectAtIndex: index];
+}
+
 -(NSString *)documentsPathForFileName:(NSString *)name {
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *fullPath = path[0];

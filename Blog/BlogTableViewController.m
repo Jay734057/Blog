@@ -124,7 +124,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%@", [[[DataService instance] loadedPosts] objectAtIndex:indexPath.row]);
+    [[DataService instance] deletePost:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+    
 }
 
 @end
