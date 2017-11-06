@@ -13,7 +13,7 @@
 @interface DataService : NSObject
 
 +(id _Nullable ) instance;
--(NSMutableArray *_Nullable)loadedPosts;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray * _Nullable loadedPosts;
 -(void)savePost;
 -(void)loadPosts;
 -(NSString *_Nonnull)saveImageAndCreatePathWithImage: (UIImage *_Nonnull) image;

@@ -101,11 +101,11 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[DataService instance] loadedPosts] count];
+    return [[DataService instance] loadedPosts].count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Post *post = [[[DataService instance] loadedPosts] objectAtIndex:indexPath.row];
+    Post *post = [[DataService instance] loadedPosts][indexPath.row];
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     if (!cell)
         cell = [[PostCell alloc] init];
@@ -125,7 +125,7 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [[DataService instance] deletePost:indexPath.row];
-    [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+    [self.tableView deleteRowsAtIndexPaths: @[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
     
 }
 

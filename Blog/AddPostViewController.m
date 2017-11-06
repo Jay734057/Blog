@@ -47,7 +47,7 @@
         _postImg.clipsToBounds = YES;
         _postImg.userInteractionEnabled = YES;
         _postImg.layer.borderWidth = 0.5f;
-        _postImg.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
+        _postImg.layer.borderColor = [UIColor colorWithRed:204 Green:204 Blue:204].CGColor;
         _postImg.layer.cornerRadius = 6;
         [_postImg addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleImgPick)]];
     }
@@ -79,7 +79,7 @@
         _descLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
         _descLbl.backgroundColor = [UIColor clearColor];
         _descLbl.layer.borderWidth = 0.5f;
-        _descLbl.layer.borderColor = [[UIColor colorWithRed:204 Green:204 Blue:204] CGColor];
+        _descLbl.layer.borderColor = [UIColor colorWithRed:204 Green:204 Blue:204].CGColor;
         _descLbl.layer.cornerRadius = 6;
         _descLbl.contentMode = UIViewContentModeScaleToFill;
         _descLbl.delegate = self;
@@ -92,9 +92,9 @@
         _postBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _postBtn.translatesAutoresizingMaskIntoConstraints = NO;
         [_postBtn setTitle:@"Make Post" forState:UIControlStateNormal];
-        [_postBtn setTintColor:[UIColor whiteColor]];
-        [_postBtn setBackgroundColor:[UIColor colorWithRed:61 Green:91 Blue:151]];
-        [_postBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:20]];
+        _postBtn.tintColor = [UIColor whiteColor];
+        _postBtn.backgroundColor = [UIColor colorWithRed:61 Green:91 Blue:151];
+        (_postBtn.titleLabel).font = [UIFont fontWithName:@"Helvetica Neue" size:20];
         _postBtn.layer.cornerRadius = 6;
         [_postBtn addTarget:self action:@selector(handlePost) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -106,8 +106,8 @@
         _cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _cancelBtn.translatesAutoresizingMaskIntoConstraints = NO;
         [_cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
-        [_cancelBtn setTintColor:[UIColor whiteColor]];
-        [_cancelBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
+        _cancelBtn.tintColor = [UIColor whiteColor];
+        (_cancelBtn.titleLabel).font = [UIFont fontWithName:@"Helvetica Neue" size:18];
         [_cancelBtn addTarget:self action:@selector(handleCancelBtnPress) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
@@ -117,10 +117,10 @@
     if (!_placeholderLabel) {
         _placeholderLabel = [[UILabel alloc] init];
         _placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [_placeholderLabel setText:@"Enter Description"];
-        [_placeholderLabel setBackgroundColor:[UIColor clearColor]];
-        [_placeholderLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:18]];
-        [_placeholderLabel setTextColor:[UIColor colorWithRed:204 Green:204 Blue:204]];
+        _placeholderLabel.text = @"Enter Description";
+        _placeholderLabel.backgroundColor = [UIColor clearColor];
+        _placeholderLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+        _placeholderLabel.textColor = [UIColor colorWithRed:204 Green:204 Blue:204];
     }
     return _placeholderLabel;
 }
@@ -194,15 +194,15 @@
 }
 
 -(void)textViewDidChange:(UITextView *)textView {
-    if(![self.descLbl hasText]) {
+    if(!(self.descLbl).hasText) {
         self.placeholderLabel.hidden = NO;
-    } else if ([[self.descLbl subviews] containsObject:self.placeholderLabel]) {
+    } else if ([(self.descLbl).subviews containsObject:self.placeholderLabel]) {
         self.placeholderLabel.hidden = YES;
     }
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
-    if (![textView hasText]) {
+    if (!textView.hasText) {
         self.placeholderLabel.hidden = NO;
     }
 }

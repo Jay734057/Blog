@@ -10,10 +10,10 @@
 
 @implementation Post
 
--(id)init { return [super init];}
+-(instancetype)init { return [super init];}
 
 
--(id)initWithImagePath: (NSString *) imagePath Title: (NSString *) title Description: (NSString *) desc{
+-(instancetype)initWithImagePath: (NSString *) imagePath Title: (NSString *) title Description: (NSString *) desc{
     self = [self init];
     
     if(self) {

@@ -12,7 +12,7 @@
 @interface PostCell : UITableViewCell
 
 -(void)configureCellWithPost: (Post *) post;
--(id)init;
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+-(instancetype)init NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

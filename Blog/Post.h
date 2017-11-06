@@ -14,7 +14,7 @@
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, strong, readonly) NSString *postDesc;
 
--(id)init;
--(id)initWithImagePath: (NSString *) imagePath Title: (NSString *) title Description: (NSString *) desc;
+-(instancetype)init NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithImagePath: (NSString *) imagePath Title: (NSString *) title Description: (NSString *) desc;
 
 @end
